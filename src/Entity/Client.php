@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use App\ValueObject\Email;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,7 +16,7 @@ class Client
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -30,7 +31,7 @@ class Client
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    private Email $email;
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
@@ -73,7 +74,7 @@ class Client
 
     public function setEmail(string $email): self
     {
-        $this->email = $email;
+        $this->email = new Email($email);
 
         return $this;
     }
