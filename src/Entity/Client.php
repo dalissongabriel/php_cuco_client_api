@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use App\ValueObject\Cpf;
 use App\ValueObject\Email;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -21,12 +22,12 @@ class Client
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
-     * @ORM\Column(type="string", length=11)
+     * @ORM\Column(type="string", length=25)
      */
-    private $cpf;
+    private Cpf $cpf;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -34,7 +35,7 @@ class Client
     private Email $email;
 
     /**
-     * @ORM\Column(type="string", length=15, nullable=true)
+     * @ORM\Column(type="string", length=25, nullable=true)
      */
     private $phone;
 
@@ -55,19 +56,19 @@ class Client
         return $this;
     }
 
-    public function getCpf(): ?string
+    public function getCpf(): ?Cpf
     {
         return $this->cpf;
     }
 
     public function setCpf(string $cpf): self
     {
-        $this->cpf = $cpf;
+        $this->cpf = new Cpf($cpf);
 
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): ?Email
     {
         return $this->email;
     }
