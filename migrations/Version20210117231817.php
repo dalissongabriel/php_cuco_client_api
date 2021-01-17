@@ -21,7 +21,7 @@ final class Version20210117231817 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SEQUENCE client_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE client (id INT NOT NULL, name VARCHAR(255) NOT NULL, cpf VARCHAR(11) NOT NULL, email VARCHAR(255) NOT NULL, phone VARCHAR(15) DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE client (id INT NOT NULL, name VARCHAR(255) NOT NULL, cpf VARCHAR(25) NOT NULL, email VARCHAR(255) NOT NULL, phone VARCHAR(25) DEFAULT NULL, PRIMARY KEY(id))');
     }
 
     public function down(Schema $schema) : void
