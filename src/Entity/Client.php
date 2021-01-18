@@ -7,11 +7,12 @@ use App\ValueObject\Cpf;
 use App\ValueObject\Email;
 use App\ValueObject\Phone;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=ClientRepository::class)
  */
-class Client
+class Client implements JsonSerializable
 {
     /**
      * @ORM\Id
@@ -91,5 +92,20 @@ class Client
         $this->phone = new Phone($phone);
 
         return $this;
+    }
+
+    public function jsonSerialize(): string
+    {
+        $serializable = [
+            "name"=>$this->getName(),
+            "cpf"=>$this->getCpf(),
+            "email"=>$this->getEmail()
+        ];
+
+        if (!is_null($this->getPhone())) {
+            array_merge($serializable, ["phone"=>$this->getPhone()]);
+        }
+
+        return $serializable;
     }
 }
