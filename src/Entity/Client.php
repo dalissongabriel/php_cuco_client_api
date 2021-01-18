@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ClientRepository;
 use App\ValueObject\Cpf;
 use App\ValueObject\Email;
+use App\ValueObject\Phone;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,7 +38,7 @@ class Client
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
      */
-    private $phone;
+    private Phone $phone;
 
     public function getId(): ?int
     {
@@ -80,14 +81,14 @@ class Client
         return $this;
     }
 
-    public function getPhone(): ?string
+    public function getPhone(): ?Phone
     {
         return $this->phone;
     }
 
     public function setPhone(?string $phone): self
     {
-        $this->phone = $phone;
+        $this->phone = new Phone($phone);
 
         return $this;
     }
