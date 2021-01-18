@@ -18,7 +18,7 @@ class Phone implements JsonSerializable
     /**
      * @ORM\Column(type="string", length=25, nullable=true, name="phone")
      **/
-    private string $number;
+    private ?string $number = null;
 
     public function __construct(string $number)
     {

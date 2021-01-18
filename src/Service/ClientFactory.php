@@ -6,7 +6,7 @@ namespace App\Service;
 
 
 use App\Entity\Client;
-use App\Helper\Exceptions\EntityFactoryException;
+use App\Helpers\Exception\EntityFactoryException;
 use App\Repository\ClientRepository;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Response;

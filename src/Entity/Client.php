@@ -96,16 +96,17 @@ class Client implements JsonSerializable
 
     public function jsonSerialize()
     {
-        $serializable = [
+        $data = [
+            "id"=>$this->getId(),
             "name"=>$this->getName(),
             "cpf"=>$this->getCpf(),
             "email"=>$this->getEmail()
         ];
 
         if (!is_null($this->getPhone())) {
-            array_merge($serializable, ["phone"=>$this->getPhone()]);
+            $data = array_merge($data, ["phone"=>$this->getPhone()]);
         }
 
-        return $serializable;
+        return $data;
     }
 }
