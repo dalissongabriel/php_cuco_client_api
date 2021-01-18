@@ -1,20 +1,25 @@
 <?php
 
 
-namespace App\ValueObject;
+namespace App\Entity\ValueObject;
 
 
 use App\Helpers\Exception\InvalidCpfException;
 use App\Helpers\Validator\CpfValidator;
+use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 use Symfony\Component\HttpFoundation\Response;
 
+/** @ORM\Embeddable() */
 class Cpf implements JsonSerializable
 {
+    /**
+     * @ORM\Column(type="string", length=25,name="cpf")
+     */
     private string $number;
 
     /**
-     * Cpf constructor.
+     * Cpf constructor.doctrine.yaml
      * @param string $number
      */
     public function __construct(string $number)

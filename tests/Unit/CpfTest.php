@@ -3,7 +3,6 @@
 namespace App\Tests\Unit;
 
 use App\Entity\Client;
-use App\ValueObject\Cpf;
 use JsonSerializable;
 use PHPUnit\Framework\TestCase;
 

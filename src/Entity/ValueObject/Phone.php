@@ -1,21 +1,25 @@
 <?php
 
 
-namespace App\ValueObject;
+namespace App\Entity\ValueObject;
 
 
 use App\Helpers\Exception\InvalidPhoneException;
 use App\Helpers\Validator\PhoneValidator;
+use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 
+/**
+ * Class Phone
+ * @ORM\Embeddable()
+ */
 class Phone implements JsonSerializable
 {
+    /**
+     * @ORM\Column(type="string", length=25, nullable=true, name="phone")
+     **/
     private string $number;
 
-    /**
-     * Phone constructor.
-     * @param string $number
-     */
     public function __construct(string $number)
     {
         $this->setPhone($number);

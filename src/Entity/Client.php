@@ -3,9 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
-use App\ValueObject\Cpf;
-use App\ValueObject\Email;
-use App\ValueObject\Phone;
+use App\Entity\ValueObject\Cpf;
+use App\Entity\ValueObject\Email;
+use App\Entity\ValueObject\Phone;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 
@@ -27,19 +27,19 @@ class Client implements JsonSerializable
     private string $name;
 
     /**
-     * @ORM\Column(type="string", length=25)
+     * @ORM\Embedded(class="App\Entity\ValueObject\Cpf", columnPrefix = false)
      */
     private Cpf $cpf;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Embedded(class="App\Entity\ValueObject\Email", columnPrefix = false)
      */
     private Email $email;
 
     /**
-     * @ORM\Column(type="string", length=25, nullable=true)
+     * @ORM\Embedded(class="App\Entity\ValueObject\Phone", columnPrefix = false)
      */
-    private Phone $phone;
+    private ?Phone $phone = null;
 
     public function getId(): ?int
     {
@@ -94,7 +94,7 @@ class Client implements JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize(): string
+    public function jsonSerialize()
     {
         $serializable = [
             "name"=>$this->getName(),
