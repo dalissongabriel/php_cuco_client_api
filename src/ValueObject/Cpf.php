@@ -6,9 +6,10 @@ namespace App\ValueObject;
 
 use App\Helpers\Exception\InvalidCpfException;
 use App\Helpers\Validator\CpfValidator;
+use JsonSerializable;
 use Symfony\Component\HttpFoundation\Response;
 
-class Cpf
+class Cpf implements JsonSerializable
 {
     private string $number;
 
@@ -37,5 +38,12 @@ class Cpf
     public function __toString(): string
     {
         return (string) $this->number;
+    }
+
+
+
+    public function jsonSerialize()
+    {
+        return $this->number;
     }
 }
