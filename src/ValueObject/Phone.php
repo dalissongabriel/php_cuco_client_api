@@ -6,8 +6,9 @@ namespace App\ValueObject;
 
 use App\Helpers\Exception\InvalidPhoneException;
 use App\Helpers\Validator\PhoneValidator;
+use JsonSerializable;
 
-class Phone
+class Phone implements JsonSerializable
 {
     private string $number;
 
@@ -38,6 +39,11 @@ class Phone
 
 
     public function __toString(): string
+    {
+        return $this->number;
+    }
+
+    public function jsonSerialize()
     {
         return $this->number;
     }
