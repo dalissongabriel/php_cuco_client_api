@@ -2,18 +2,55 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Client;
+use App\Repository\ClientRepository;
+use App\Service\ClientFactory;
+use App\Service\DataExtractorRequest;
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Cache\CacheItemPoolInterface;
 
-class ClientController extends AbstractController
+class ClientController extends BaseController
 {
-    #[Route('/client', name: 'client')]
-    public function index(): Response
+
+    /**
+     * ClientController constructor.
+     * @param ClientRepository $repository
+     * @param EntityManagerInterface $entityManager
+     * @param ClientFactory $factory
+     * @param DataExtractorRequest $extractorRequest
+     * @param CacheItemPoolInterface $cache
+     */
+    public function __construct(
+        ClientRepository $repository,
+        EntityManagerInterface $entityManager,
+        ClientFactory $factory,
+        DataExtractorRequest $extractorRequest,
+        CacheItemPoolInterface $cache
+    ) {
+        parent::__construct(
+            $repository,
+            $entityManager,
+            $factory,
+            $extractorRequest,
+            $cache);
+    }
+
+    /**
+     * @param Client $entity
+     * @param Client $newEntity
+     */
+    public function updateEntity(object $entity, object $newEntity): void
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/ClientController.php',
-        ]);
+        $entity->setName($newEntity->getName());
+        $entity->setEmail($newEntity->getEmail());
+        $entity->setCpf($newEntity->getCpf());
+        if(!is_null($newEntity->getPhone())) {
+            $entity->setPhone($newEntity->getPhone());
+        }
+    }
+
+    public function cachePrefix(): string
+    {
+        return "client_";
     }
 }
