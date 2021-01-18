@@ -1,3 +1,29 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+customers:
+  path: /clientes
+  controller: App\Controller\ClientController::findAll
+  methods:
+    - GET
+
+client:
+  path: /clientes/{id}
+  controller: App\Controller\ClientController::find
+  methods:
+    - GET
+    -
+create_client:
+  path: /clientes
+  controller: App\Controller\ClientController::create
+  methods:
+    - POST
+
+update_client:
+  path: /clientes/{id}
+  controller: App\Controller\ClientController::update
+  methods:
+    - PUT
+
+remove_client:
+  path: /clientes/{id}
+  controller: App\Controller\ClientController::remove
+  methods:
+    - DELETE
