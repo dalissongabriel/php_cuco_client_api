@@ -7,6 +7,7 @@ namespace App\Tests\Unit;
 use App\Helpers\Exception\InvalidCpfException;
 use App\Helpers\Exception\InvalidEmailException;
 use App\Helpers\Exception\InvalidPhoneException;
+use JsonSerializable;
 use PHPUnit\Framework\TestCase;
 use App\Entity\Client;
 
@@ -52,5 +53,11 @@ class ClientTest extends TestCase
         self::expectException(InvalidPhoneException::class);
         $client = new Client();
         $client->setPhone("49 9 8855443333333");
+    }
+
+    public function testShouldEnsureThatEntityIsSerializable()
+    {
+        $client = new Client();
+        self::assertTrue($client instanceof JsonSerializable);
     }
 }
