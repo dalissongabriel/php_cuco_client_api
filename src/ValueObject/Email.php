@@ -6,9 +6,10 @@ namespace App\ValueObject;
 
 use App\Helpers\Exception\InvalidEmailException;
 use App\Helpers\Validator\EmailValidator;
+use JsonSerializable;
 use Symfony\Component\HttpFoundation\Response;
 
-class Email
+class Email implements JsonSerializable
 {
     private string $address;
 
@@ -42,4 +43,8 @@ class Email
         return (string) $this->address;
     }
 
+    public function jsonSerialize()
+    {
+        return $this->address;
+    }
 }
