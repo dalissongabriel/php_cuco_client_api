@@ -80,6 +80,12 @@ class ClientTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $client->request("GET","/clientes",[],[],['CONTENT_TYPE'=>'application/json']);
+        $response = $client->getResponse();
+        $content = json_decode($response->getContent());
+        var_dump($content);
+        die();
+
         $client->request('DELETE', '/clientes/1',[],[],
             ['CONTENT_TYPE'=>'application/json']);
 
