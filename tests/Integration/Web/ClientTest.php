@@ -74,6 +74,46 @@ class ClientTest extends WebTestCase
         self::assertEquals(404, $response->getStatusCode());
     }
 
+    public function testMustEnsureThatARequestWithAnInvalidBodyIsHandled()
+    {
+        $client = static::createClient();
+        $invalidBody = "{
+            'name':'bad name
+        }";
+
+        $client->request('POST', '/clientes',[],[],[
+            'CONTENT_TYPE'=>'application/json'
+        ], $invalidBody);
+
+        $response = $client->getResponse();
+        $content = json_decode($response->getContent());
+
+        self::assertFalse($content->success);
+        self::assertEquals(400, $response->getStatusCode());
+    }
+
+    public function testShouldEnsureThatAllMandatoryFieldsHaveBeenEnteredToCreatClient()
+    {
+        $client = static::createClient();
+        $body = json_encode([
+            "name"=>"Cliente teste 3",
+            "email"=>"teste3@valid.com",
+            "phone"=>"(40) 404044040"
+        ]);
+
+        $client->request('POST', '/clientes',[],[],[
+            'CONTENT_TYPE'=>'application/json'
+        ], $body);
+
+        $response = $client->getResponse();
+        $content = json_decode($response->getContent());
+
+        self::assertFalse($content->success);
+        self::assertObjectHasAttribute("message", $content->data);
+        self::assertEquals(400, $response->getStatusCode());
+    }
+
+
     public function testMustEnsureThatTheRequestGetAllClientIsSucessful()
     {
         $client = static::createClient();
