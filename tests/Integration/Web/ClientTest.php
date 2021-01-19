@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Tests\Integration;
+namespace App\Tests\Integration\Web;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -61,6 +61,19 @@ class ClientTest extends WebTestCase
         self::assertEquals(200, $response->getStatusCode());
     }
 
+    public function testMustEnsureCatchHttpNotFoundExceptionWhenRouteDontExists()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/my-altory-route',[],[],
+            ['CONTENT_TYPE'=>'application/json']);
+        $response = $client->getResponse();
+        $content = json_decode($response->getContent());
+
+        self::assertFalse($content->success);
+        self::assertEquals(404, $response->getStatusCode());
+    }
+
     public function testMustEnsureThatTheRequestGetAllClientIsSucessful()
     {
         $client = static::createClient();
@@ -76,20 +89,20 @@ class ClientTest extends WebTestCase
         self::assertEquals(200, $response->getStatusCode());
     }
 
-    public function testMustEnsureThatTheRequestRemoveAClientIsSucessful()
-    {
-        $client = static::createClient();
-
-        $client->request("GET","/clientes",[],[],['CONTENT_TYPE'=>'application/json']);
-        $response = $client->getResponse();
-        $content = json_decode($response->getContent());
-        var_dump($content);
-        die();
-
-        $client->request('DELETE', '/clientes/1',[],[],
-            ['CONTENT_TYPE'=>'application/json']);
-
-        $response = $client->getResponse();
-        self::assertEquals(204, $response->getStatusCode());
-    }
+//    public function testMustEnsureThatTheRequestRemoveAClientIsSucessful()
+//    {
+//        $client = static::createClient();
+//
+//        $client->request("GET","/clientes",[],[],['CONTENT_TYPE'=>'application/json']);
+//        $response = $client->getResponse();
+//        $content = json_decode($response->getContent());
+//        var_dump($content);
+//        die();
+//
+//        $client->request('DELETE', '/clientes/1',[],[],
+//            ['CONTENT_TYPE'=>'application/json']);
+//
+//        $response = $client->getResponse();
+//        self::assertEquals(204, $response->getStatusCode());
+//    }
 }
