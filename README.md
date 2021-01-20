@@ -27,6 +27,7 @@
 * PHP 8
 * Symfony 5
 * Postgres 13
+* SQLite 3
 * Aplicado uso de cache para agilizar consultas
 * PHPUnit para realizar testes de integração e unitários ( todos passando :) )
 * Na infraestrutura, para banco de dados foi utilizado o ORM doctrine para operar os repositórios
@@ -45,15 +46,15 @@ Clone o repositório
 
 ``` git clone git@github.com:dalissongabriel/test_php_backend_cuco.git ```
 
-Baixe as dependências com o composer:
-
-``` composer install ```
-
-Crie suas variáveis de ambiente baseado no exemplo: ```.env.example```
+Dentro da pasta do projeot, crie suas variáveis de ambiente baseado no exemplo:  ```.env.example```
 
 ```cp .env.example .env```
 
 ``` DATABASE_URL="postgresql://SEU_USUARIO:SUA_SENHA@HOST_DO_BANCO:PORTA_DO_BANCO/NOME_DO_BANCO?serverVersion=13&charset=utf8" ```
+
+Baixe as dependências com o composer:
+
+``` composer install ```
 
 Crie o banco de dados
 
@@ -75,12 +76,17 @@ Suba o servidor para rodar a aplicação:
 Execute o comando para criar a base de dados teste em SQLite 3:
 
 ``` php bin/console -e test doctrine:schema:create ```
+ 
+Execute o comando para popular as seeds na base de testes:
 
+```php bin/console doctrine:fixtures:load --env=test```
 
 Em seguida, rode testes feitos em PHPUnit
 
 ``` php bin/phpunit ```
 
+Testes passando!!!
+``` OK (24 tests, 47 assertions) ```
 
 # Histórias de usuário
 
