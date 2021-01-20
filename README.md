@@ -260,6 +260,30 @@ Documentação completa para consumo da API:
         ```bash
         PUT http://localhost:8081/clientes/{id}
         ```
+    - Retornos possíveis
+
+        Código | Resposta
+        ------------ | -------------
+        `200 (Atualizado)` | `Cliente atualizado com sucesso ` 
+        `400 (Requisição inválida)` | `A requisição realizada contém problemas de má formação`
+        `401 (Não autorizado)` | `Na requisição, não foi informado o cabeçalho de autorização`
+        `404 (Não encontrado)` | `Recurso com o {id} não encontrado na base`
+        `412 (Pré-condição falhou)` | `Os valores informados não são válidos.`
+
+4. Remover um cliente
+
+    Esta rota remove um registro na tabela client pelo ID.
+    - Request
+        ```bash
+        DELETE http://localhost:8081/clientes/{id}
+        ```
+    - Retornos possíveis
+
+        Código | Resposta
+        ------------ | -------------
+        `204 (Nenhum conteúdo)` | `Cliente apagado ` 
+        `401 (Não autorizado)` | `Na requisição, não foi informado o cabeçalho de autorização`
+        `404 (Não encontrado)` | `Recurso com o {id} não encontrado na base`
 
 
 ---
