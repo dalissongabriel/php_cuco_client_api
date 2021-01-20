@@ -115,7 +115,7 @@ Documentação completa para consumo da API:
         ```bash
         POST http://localhost:8081/clientes 
         ```
-    - Body
+    - Exemplos de um bom Body
         ```json
         {
             "name": "Otavio Mota",
@@ -140,20 +140,128 @@ Documentação completa para consumo da API:
         `401 (Não autorizado)` | `Na requisição, não foi informado o cabeçalho de autorização`
         `412 (Pré-condição falhou)` | `Os valores informados não são    válidos.`
 
----
-Documentação completa do banco de dados
+2. Buscar cliente
+
+    Esta rota busca um registro na tabela client pelo ID.
+    - Request
+        ```bash
+        GET http://localhost:8081/clientes/{id} 
+        ```
+      
+    - Retornos possíveis
+
+        Código | Resposta
+        ------------ | -------------
+        `200 (Ok)` | `Requisição processada com sucesso ` 
+        `400 (Requisição inválida)` | `A requisição realizada contém problemas de má formação`
+        `401 (Não autorizado)` | `Na requisição, não foi informado o cabeçalho de autorização`
+   - Exemplos
+     - Request
+         ```json
+            {
+               "name":"Teste 3",
+               "cpf":"278.128.110-77",
+               "email":"email@email.com"
+            }
+         ```
 
 
+     - Response
+        ```json
+         {
+            "success": true,
+            "data": {
+                        "id": 20,
+                        "name": "Teste 3",
+                        "cpf": "278.128.110-77",
+                        "email": "email@email.com"
+                     }
+         }
+        ```
 
-| ##client</a>|
+3. Buscar todos os clientes
 
-| id |
-| name |
-| cpf |
-| email |
+    Esta rota busca um registro na tabela client pelo ID.
+    - Request
+        ```bash
+        GET http://localhost:8081/clientes
+        ```
+   - Filtros, ordenação e paginação:
+
+        Opções | Função
+        ------------ | -------------
+        `/clientes?name=Teste 3` | `filtra por nome ` 
+        `/clientes?cpf="123.456.789-9` | `filtra por cpf`
+        `/clientes?name=Teste 3cpf=123.456.789-9` | `filtra por nome e cpf`
+        `/clientes?sort[name]=ASC` | `ordena em ascendente por nome `
+        `/clientes?sort[name]=DESC` | `ordena em descendente por nome `
+        `/clientes?sort[name]=DESC&sort[id]=ASC` | `ordena em descendente por nome e depois por ID em ascendente `
+        `/clientes?page=2` | `retorna a 2ª página de dados `
+        `/clientes?page=2&itemsPerPage=20` | `retorna a 2ª página de dados, exibindo 20 items `
+
+   - Retornos possíveis
+
+        Código | Resposta
+        ------------ | -------------
+        `200 (Ok)` | `Requisição processada com sucesso ` 
+        `400 (Requisição inválida)` | `A requisição realizada contém problemas de má formação`
+        `401 (Não autorizado)` | `Na requisição, não foi informado o cabeçalho de autorização`
+   - Response
+      ```json
+      {
+         "success": true,
+         "currentPage": 1,
+         "itemsPerPage": 5,
+         "data": []
+      }
+      ```
+      ```json
+      {
+         "success": true,
+         "currentPage": 1,
+         "itemsPerPage": 5,
+         "data": [
+            {
+                  "id": 17,
+                  "name": "Client Test 1",
+                  "cpf": "446.069.350-06",
+                  "email": "fructuosa2658@uorak.com",
+                  "phone": null
+            },
+            {
+                  "id": 18,
+                  "name": "Client Test 2",
+                  "cpf": "949.487.580-00",
+                  "email": "abdennacer2076@uorak.com",
+                  "phone": null
+            },
+            {
+                  "id": 19,
+                  "name": "Teste 3",
+                  "cpf": "278.128.110-77",
+                  "email": "email@email.com",
+                  "phone": null
+            },
+            {
+                  "id": 20,
+                  "name": "Teste 3",
+                  "cpf": "278.128.110-77",
+                  "email": "email@email.com",
+                  "phone": null
+            }
+         ]
+      }
+      ```
+
+3. Atualizar dados de um cliente
+
+    Esta rota atualiza um registro na tabela client pelo ID.
+    - Request
+        ```bash
+        PUT http://localhost:8081/clientes/{id}
+        ```
 
 
-phone
 ---
 Projeto concluído em **2021**
 
