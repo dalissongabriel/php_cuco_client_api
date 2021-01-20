@@ -90,7 +90,7 @@ Em seguida, rode testes feitos em PHPUnit
 
 - [X] Cliente poderá filtrar os registros por email
 
-- [X] Cliente deverá receber respostas com informações extras sobre os recursos consultados
+- [X] Cliente deverá receber respostas com informações extras sobre os recursos consultados (HATEOAS)
 
 - [X] Cliente poderá escolher a ordenação de sua busca
 
@@ -107,13 +107,54 @@ Está é um API RESTful com um contexto bem enxuto, todavia, para a construção
 
 Documentação completa para consumo da API:
 
+1. Obter Token de acesso (Rota não protegida)
 
-1. Adicionar clientes
+    Esta rota autentica um usuário e retona um token JWT válido para utilizar nas demais requisições. Somente um usuário foi adicionado por meio de seeds (Fixtures)
+    - Request
+        ```bash
+        POST http://localhost:8081/login 
+        ```
+    - Exemplos de um bom Body
+        ```json
+        {
+            "username": "my-valid-user-login",
+            "password": "my-valid=password-login"
+        }
+        ```
+    - Retornos possíveis
+
+        Código | Resposta
+        ------------ | -------------
+        `200 (OK)` | `Login processado com sucesso ` 
+        `400 (Requisição inválida)` | `A requisição realizada contém problemas de má formação`
+        `401 (Não autorizado)` | `Usuário ou senha incorretos`
+    - Response
+      ```json
+        {
+            "success": true,
+            "data": {
+                "access_token": "aqui estará seu token para acesso"
+            }
+        }
+        ```
+    
+        ```json
+        {
+            "success": false,
+            "data": {
+                "message": "Usuário ou senha inválidos"
+        }
+        ```
+
+2. Adicionar clientes (Rota protegida)
 
     Esta rota insere um novo registro na tabela client.
     - Request
         ```bash
         POST http://localhost:8081/clientes 
+    - Header
+        ```bash
+        AUTHORIZATION {ACCESS_TOKEN 
         ```
     - Exemplos de um bom Body
         ```json
@@ -138,16 +179,19 @@ Documentação completa para consumo da API:
         `201 (Criado)` | `Cliente cadastrado ` 
         `400 (Requisição inválida)` | `A requisição realizada contém problemas de má formação`
         `401 (Não autorizado)` | `Na requisição, não foi informado o cabeçalho de autorização`
-        `412 (Pré-condição falhou)` | `Os valores informados não são    válidos.`
+        `412 (Pré-condição falhou)` | `Os valores informados não são válidos.`
 
-2. Buscar cliente
+3. Buscar cliente (Rota protegida)
 
     Esta rota busca um registro na tabela client pelo ID.
     - Request
         ```bash
         GET http://localhost:8081/clientes/{id} 
         ```
-      
+    - Header
+        ```bash
+        AUTHORIZATION {ACCESS_TOKEN}
+        ```
     - Retornos possíveis
 
         Código | Resposta
@@ -164,8 +208,10 @@ Documentação completa para consumo da API:
                "email":"email@email.com"
             }
          ```
-
-
+      - Header
+          ```bash
+          AUTHORIZATION {ACCESS_TOKEN 
+          ```
      - Response
         ```json
          {
@@ -179,12 +225,16 @@ Documentação completa para consumo da API:
          }
         ```
 
-3. Buscar todos os clientes
+4. Buscar todos os clientes (Rota protegida)
 
     Esta rota busca um registro na tabela client pelo ID.
     - Request
         ```bash
         GET http://localhost:8081/clientes
+        ```
+    - Header
+        ```bash
+        AUTHORIZATION {ACCESS_TOKEN}
         ```
    - Filtros, ordenação e paginação:
 
@@ -253,12 +303,16 @@ Documentação completa para consumo da API:
       }
       ```
 
-3. Atualizar dados de um cliente
+5. Atualizar dados de um cliente (Rota protegida)
 
     Esta rota atualiza um registro na tabela client pelo ID.
     - Request
         ```bash
         PUT http://localhost:8081/clientes/{id}
+        ```
+    - Header
+        ```bash
+        AUTHORIZATION {ACCESS_TOKEN}
         ```
     - Retornos possíveis
 
@@ -270,12 +324,16 @@ Documentação completa para consumo da API:
         `404 (Não encontrado)` | `Recurso com o {id} não encontrado na base`
         `412 (Pré-condição falhou)` | `Os valores informados não são válidos.`
 
-4. Remover um cliente
+6. Remover um cliente (Rota protegida)
 
     Esta rota remove um registro na tabela client pelo ID.
     - Request
         ```bash
         DELETE http://localhost:8081/clientes/{id}
+        ```
+    - Header
+        ```bash
+        AUTHORIZATION {ACCESS_TOKEN} 
         ```
     - Retornos possíveis
 
