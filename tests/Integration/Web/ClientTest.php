@@ -27,6 +27,70 @@ class ClientTest extends WebTestCase
         self::assertEquals(201, $response->getStatusCode());
     }
 
+    public function testEnsureThatAnInvalidCpfIsHandledByTheDomainDuringTheRequest()
+    {
+        $client = static::createClient();
+
+        $client->request('POST', '/clientes',[],[],[
+            'CONTENT_TYPE'=>'application/json',
+            'HTTP_AUTHORIZATION'=> LoginApi::login($client)
+        ], json_encode([
+            "name"=>"Cliente teste 3",
+            "cpf"=>"1234236",
+            "email"=>"teste3@valid.com"
+        ]));
+
+        $response = $client->getResponse();
+        $content = json_decode($response->getContent());
+
+        self::assertFalse($content->success);
+        self::assertObjectHasAttribute("message",$content->data);
+        self::assertEquals(412, $response->getStatusCode());
+    }
+
+    public function testEnsureThatAnInvalidEmailIsHandledByTheDomainDuringTheRequest()
+    {
+        $client = static::createClient();
+
+        $client->request('POST', '/clientes',[],[],[
+            'CONTENT_TYPE'=>'application/json',
+            'HTTP_AUTHORIZATION'=> LoginApi::login($client)
+        ], json_encode([
+            "name"=>"Cliente teste 3",
+            "cpf"=>"278.128.110-77",
+            "email"=>"teste3@"
+        ]));
+
+        $response = $client->getResponse();
+        $content = json_decode($response->getContent());
+
+        self::assertFalse($content->success);
+        self::assertObjectHasAttribute("message",$content->data);
+        self::assertEquals(412, $response->getStatusCode());
+    }
+
+    public function testEnsureThatAnInvalidPhoneHandledByTheDomainDuringTheRequest()
+    {
+        $client = static::createClient();
+
+        $client->request('POST', '/clientes',[],[],[
+            'CONTENT_TYPE'=>'application/json',
+            'HTTP_AUTHORIZATION'=> LoginApi::login($client)
+        ], json_encode([
+            "name"=>"Cliente teste 3",
+            "cpf"=>"278.128.110-77",
+            "email"=>"teste3@test.com",
+            "phone"=>"3333322"
+        ]));
+
+        $response = $client->getResponse();
+        $content = json_decode($response->getContent());
+
+        self::assertFalse($content->success);
+        self::assertObjectHasAttribute("message",$content->data);
+        self::assertEquals(412, $response->getStatusCode());
+    }
+
     public function testMustEnsureThatTheRequestCreateClientWithPhoneIsSucessful()
     {
         $client = static::createClient();

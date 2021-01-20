@@ -65,4 +65,20 @@ class LoginTest extends WebTestCase
         self::assertEquals(401, $response->getStatusCode());
     }
 
+    public function testShouldEnsureThatAllProtectedRoutesRequireAuthorization()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/clientes',[],[],[
+            'CONTENT_TYPE'=>'application/json'
+        ]);
+
+        $response = $client->getResponse();
+        $content = json_decode($response->getContent());
+
+        self::assertFalse($content->success);
+        self::assertObjectHasAttribute("message",$content->data);
+        self::assertEquals(401, $response->getStatusCode());
+    }
+
 }
