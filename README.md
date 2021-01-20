@@ -22,7 +22,17 @@
 * Explore os dados registrados por meio de filtros e ordenações
 * Obtenha seus clientes no formato mais famoso para integrações: JSON
 
+# Tecnologias e técnicas
 
+* PHP 8
+* Symfony 5
+* Postgres 13
+* Aplicado uso de cache para agilizar consultas
+* PHPUnit para realizar testes de integração e unitários ( todos passando :) )
+* Na infraestrutura, para banco de dados foi utilizado o ORM doctrine para operar os repositórios
+* Também foi utilizado Postman para testes das rotas
+* Para o repositório git, segui a [convenção do framework Angular](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
+  
 # Requirimentos
  - Instale o [PHP 8](https://www.php.net/downloads)
  - Instale o [Postgres 13](https://www.postgresql.org/download/)
@@ -96,12 +106,12 @@ Em seguida, rode testes feitos em PHPUnit
 
 - [X] Cliente deverá receber respostas páginadas, e poderá escolher qual página gostaria de receber, assim como a quantidade de registros por página
 
-- [X] Os campos CPF,Teleone e E-mail devem ser válidados para garantir a integridade do domínio
+- [X] Os campos CPF,Telefone e E-mail devem ser válidados para garantir a integridade do domínio
 
 
 ## Documentação
 
-Está é um API RESTful com um contexto bem enxuto, todavia, para a construção da mesma, utilizei boas práticas de programação e teste unitários para entregar um ferramenta de fácil manutenção e evolução. Para facilitar ainda mais a utilização da mesma, disponibilizo abaixo uma relação completa de uso das rotas, e também uma [coleção do postmam](./docs/Cuco%20Clientes%20Collection.postman_collection.json). Faça bom uso :)
+Esta é um API RESTful com um contexto bem enxuto, todavia, para a construção da mesma, utilizei boas práticas de programação e teste unitários para entregar um ferramenta de fácil manutenção e evolução. Para facilitar ainda mais a utilização da mesma, disponibilizo abaixo uma relação completa de uso das rotas, e também uma [coleção do postmam](./docs/Cuco%20Clientes%20Collection.postman_collection.json). Faça bom uso :)
 
 ---
 
