@@ -107,6 +107,17 @@ class Client implements JsonSerializable
             $data = array_merge($data, ["phone"=>$this->getPhone()]);
         }
 
+        $hipermedia = [
+            "_links"=> [
+                [
+                    "rel"=>"self",
+                    "path"=>"/clientes/" . $this->getId()
+                ]
+            ]
+        ];
+        
+        $data = array_merge($data,$hipermedia);
+
         return $data;
     }
 }
