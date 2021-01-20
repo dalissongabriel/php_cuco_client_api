@@ -7,6 +7,7 @@ use App\Helpers\Exception\DatabaseException;
 use App\Helpers\Exception\EntityFactoryException;
 use App\Service\ResponseFactory;
 use Doctrine\ORM\EntityNotFoundException;
+use DomainException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -21,12 +22,12 @@ class ExceptionHandler implements EventSubscriberInterface
     {
         return [
             KernelEvents::EXCEPTION => [
-                ['handle404Exception',4],
-                ['handle400Exception',3],
-                ['handleEntityException',2],
-                ['handleEntityNotFoundException',1],
-                ['handleDatabaseException',0]
-
+                ['handle404Exception',5],
+                ['handle400Exception',4],
+                ['handleEntityException',3],
+                ['handleEntityNotFoundException',2],
+                ['handleDatabaseException',1],
+                ['handleDomainException',0],
             ]
         ];
     }
@@ -93,6 +94,20 @@ class ExceptionHandler implements EventSubscriberInterface
             $responseFactory = ResponseFactory::fromError(
                 $exception,
                 $exception->getCode()
+            );
+
+            $event->setResponse($responseFactory->getResponse());
+        }
+    }
+
+    public function handleDomainException(ExceptionEvent $event)
+    {
+        $exception = $event->getThrowable();
+
+        if ($exception instanceof  DomainException) {
+            $responseFactory = ResponseFactory::fromError(
+                $exception,
+                412
             );
 
             $event->setResponse($responseFactory->getResponse());
