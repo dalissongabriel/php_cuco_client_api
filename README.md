@@ -34,7 +34,7 @@
 * Também foi utilizado Postman para testes das rotas
 * Para o repositório git, segui a [convenção do framework Angular](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
   
-# Requirimentos
+# Requerimentos
  - Instale o [PHP 8](https://www.php.net/downloads)
  - Instale o [Postgres 13](https://www.postgresql.org/download/)
  - Instale o [Composer 2](https://getcomposer.org/download/)
@@ -46,7 +46,7 @@ Clone o repositório
 
 ``` git clone git@github.com:dalissongabriel/test_php_backend_cuco.git ```
 
-Dentro da pasta do projeot, crie suas variáveis de ambiente baseado no exemplo:  ```.env.example```
+Dentro da pasta do projeto, crie suas variáveis de ambiente baseado no exemplo:  ```.env.example```
 
 ```cp .env.example .env```
 
@@ -243,7 +243,7 @@ Documentação completa para consumo da API:
 
 4. Buscar todos os clientes (Rota protegida)
 
-    Esta rota busca um registro na tabela client pelo ID.
+    Esta rota busca registros na tabela client, podendo realizar buscas personalizadas.
     - Request
         ```bash
         GET http://localhost:8081/clientes
