@@ -11,7 +11,7 @@
 [![Author](https://img.shields.io/badge/Author-Alisson%20Gabriel-black)](https://github.com/LauraBeatris)
 
 
-> Cadastre seus clientes e os gerencie-os através de uma interace simples e amigável.
+> Cadastre seus clientes e os gerencie através de uma interface simples e amigável.
 
 <br />
 
