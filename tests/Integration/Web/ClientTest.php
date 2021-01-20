@@ -12,7 +12,8 @@ class ClientTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('POST', '/clientes',[],[],[
-            'CONTENT_TYPE'=>'application/json'
+            'CONTENT_TYPE'=>'application/json',
+            'HTTP_AUTHORIZATION'=> LoginApi::login($client)
         ], json_encode([
             "name"=>"Cliente teste 3",
             "cpf"=>"278.128.110-77",
@@ -31,7 +32,8 @@ class ClientTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('POST', '/clientes',[],[],[
-            'CONTENT_TYPE'=>'application/json'
+            'CONTENT_TYPE'=>'application/json',
+            'HTTP_AUTHORIZATION'=> LoginApi::login($client)
         ], json_encode([
             "name"=>"Cliente teste 3",
             "cpf"=>"278.128.110-77",
@@ -52,7 +54,11 @@ class ClientTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('GET', '/clientes/1',[],[],
-            ['CONTENT_TYPE'=>'application/json']);
+            [
+                'CONTENT_TYPE'=>'application/json',
+                'HTTP_AUTHORIZATION'=> LoginApi::login($client)
+            ]
+        );
 
         $response = $client->getResponse();
         $content = json_decode($response->getContent());
@@ -66,7 +72,11 @@ class ClientTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('GET', '/my-altory-route',[],[],
-            ['CONTENT_TYPE'=>'application/json']);
+            [
+                'CONTENT_TYPE'=>'application/json',
+                'HTTP_AUTHORIZATION'=> LoginApi::login($client)
+            ]
+        );
         $response = $client->getResponse();
         $content = json_decode($response->getContent());
 
@@ -82,7 +92,8 @@ class ClientTest extends WebTestCase
         }";
 
         $client->request('POST', '/clientes',[],[],[
-            'CONTENT_TYPE'=>'application/json'
+            'CONTENT_TYPE'=>'application/json',
+            'HTTP_AUTHORIZATION'=> LoginApi::login($client)
         ], $invalidBody);
 
         $response = $client->getResponse();
@@ -102,7 +113,8 @@ class ClientTest extends WebTestCase
         ]);
 
         $client->request('POST', '/clientes',[],[],[
-            'CONTENT_TYPE'=>'application/json'
+            'CONTENT_TYPE'=>'application/json',
+            'HTTP_AUTHORIZATION'=> LoginApi::login($client)
         ], $body);
 
         $response = $client->getResponse();
@@ -119,7 +131,11 @@ class ClientTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('GET', '/clientes',[],[],
-            ['CONTENT_TYPE'=>'application/json']);
+            [
+                'CONTENT_TYPE'=>'application/json',
+                'HTTP_AUTHORIZATION'=> LoginApi::login($client)
+            ]
+        );
 
         $response = $client->getResponse();
         $content = json_decode($response->getContent());

@@ -12,7 +12,8 @@ class LoginTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('POST', '/login',[],[],[
-            'CONTENT_TYPE'=>'application/json'
+            'CONTENT_TYPE'=>'application/json',
+            'HTTP_AUTHORIZATION'=> LoginApi::login($client)
         ], json_encode([
             "login"=>"test",
             "senha"=>"password_test"
@@ -30,7 +31,8 @@ class LoginTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('POST', '/login',[],[],[
-            'CONTENT_TYPE'=>'application/json'
+            'CONTENT_TYPE'=>'application/json',
+            'HTTP_AUTHORIZATION'=> LoginApi::login($client)
         ], json_encode([
             "username"=>"user_cuco_api",
             "password"=>'password_cuco_api'
@@ -48,7 +50,8 @@ class LoginTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('POST', '/login',[],[],[
-            'CONTENT_TYPE'=>'application/json'
+            'CONTENT_TYPE'=>'application/json',
+            'HTTP_AUTHORIZATION'=> LoginApi::login($client)
         ], json_encode([
             "username"=>"my_aleatory_user",
             "password"=>'my_aleatory_password'
