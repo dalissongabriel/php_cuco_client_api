@@ -73,7 +73,7 @@ class JWTAuthenticator extends AbstractGuardAuthenticator
     {
         $responseFactory = new ResponseFactory(
             false,
-            "Falha na autentificação",
+            ["message"=>"Falha na autentificação"],
             Response::HTTP_UNAUTHORIZED
         );
         return $responseFactory->getResponse();
