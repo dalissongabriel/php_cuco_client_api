@@ -27,3 +27,9 @@ remove_client:
   controller: App\Controller\ClientController::remove
   methods:
     - DELETE
+
+login:
+  path: /login
+  controller: App\Controller\LoginController::login
+  methods:
+    - POST
